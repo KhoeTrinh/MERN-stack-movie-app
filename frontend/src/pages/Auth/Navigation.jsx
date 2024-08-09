@@ -8,8 +8,9 @@ import { MdOutlineLocalMovies } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLoginMutation } from '../../redux/api/usersSlice';
+import { useLogoutMutation } from '../../redux/api/usersSlice';
 import { logout } from '../../redux/features/auth/authSlice';
+import { toast } from 'react-toastify';
 
 const Navigation = () => {
     const { userInfo } = useSelector((state) => state.auth);
@@ -22,7 +23,19 @@ const Navigation = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [logoutApiCall] = useLoginMutation();
+    const [logoutApiCall] = useLogoutMutation();
+
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall();
+            dispatch(logout());
+            navigate('/login');
+            toast.success('Logged out successfully');
+        } catch (err) {
+            console.log(err);
+            toast.error('Failed to log out');
+        }
+    };
 
     return (
         <div
@@ -126,7 +139,7 @@ const Navigation = () => {
                             </li>
                             <li>
                                 <button
-                                    // onClick={logoutHandler}
+                                    onClick={logoutHandler}
                                     className='block w-full px-4 py-2 
                                     text-left hover:bg-gray-100'>
                                     Logout

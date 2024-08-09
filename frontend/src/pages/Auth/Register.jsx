@@ -33,7 +33,7 @@ const Register = () => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            toast.error('Password does not match');
+            toast.error('Password do not match');
         } else {
             try {
                 const res = await register({
@@ -43,10 +43,10 @@ const Register = () => {
                 }).unwrap();
                 dispatch(setCredentials({ ...res }));
                 navigate(redirect);
-                toast.success('Registration successful');
+                toast.success('User successfully registered.');
             } catch (err) {
                 console.log(err);
-                toast.error(err.data.message);
+                toast.error('This email is already registered');
             }
         }
     };
@@ -156,7 +156,8 @@ const Register = () => {
             <img
                 src='https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                 alt=''
-                className='h-[44rem] w-[47.9%] xl:block md:hidden sm:hidden rounded-lg'
+                className='h-[44rem] w-[47.9%] xl:block md:hidden 
+                sm:hidden rounded-lg'
             />
         </div>
     );
