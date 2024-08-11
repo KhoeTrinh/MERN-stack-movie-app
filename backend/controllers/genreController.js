@@ -60,26 +60,23 @@ const deleteGenre = asyncHandler(async (req, res) => {
 
 const listGenres = asyncHandler(async (req, res) => {
     try {
-        const genres = await Genre.find({});
-        res.json(genres);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json(err);
+        const all = await Genre.find({});
+        res.json(all);
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json(error.message);
     }
 });
 
 const readGenre = asyncHandler(async (req, res) => {
     try {
-        const genre = await Genre.findById({_id: req.params.id})
-        if (!genre) {
-            return res.status(404).json({ error: 'Genre not found' });
-        }
-        res.json(genre);
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json(err);
+      const genre = await Genre.findOne({ _id: req.params.id });
+      res.json(genre);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json(error.message);
     }
-})
+  });
 
 export {
     createGenre,

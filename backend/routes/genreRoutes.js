@@ -17,11 +17,11 @@ import {
 } from '../middlewares/authMiddleware.js';
 
 router.route('/').post(authenticate, authorizeAdmin, createGenre);
+router.route('/genres').get(listGenres);
 router
     .route('/:id')
-    .get(readGenre)
     .put(authenticate, authorizeAdmin, updateGenre)
-    .delete(authenticate, authorizeAdmin, deleteGenre);
-router.route('/genres').get(listGenres);
+    .delete(authenticate, authorizeAdmin, deleteGenre)
+    .get(readGenre);
 
 export default router;
