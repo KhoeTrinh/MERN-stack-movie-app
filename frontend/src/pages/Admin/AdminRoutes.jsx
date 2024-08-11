@@ -1,5 +1,14 @@
+import { Navigate, Outlet } from 'react-router-dom';
+import { useSelctor, useSelector } from 'react-redux';
+
 const AdminRoutes = () => {
-  return <div>AdminRoutes</div>;
+    const { userInfo } = useSelector((state) => state.auth);
+
+    return userInfo && userInfo.isAdmin ? (
+      <Outlet />
+    ) : (
+      <Navigate to='/login' replace />
+    );
 };
 
 export default AdminRoutes;
