@@ -74,4 +74,4 @@ export const {
     useGetNewMoviesQuery,
     useGetTopMoviesQuery,
     useGetRandomMoviesQuery,
-} =movieApiSlice
+} = movieApiSlice
