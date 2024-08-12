@@ -13,6 +13,7 @@ import { createBrowserRouter } from 'react-router-dom';
 // Auth
 import AdminRoutes from './pages/Admin/AdminRoutes.jsx';
 import GenreList from './pages/Admin/GenreList.jsx';
+import CreateMovie from './pages/Admin/CreateMovie.jsx';
 
 // Restricted
 import Home from './pages/Home.jsx'
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
                 </Route>
                 <Route path='' element={<AdminRoutes />}>
                     <Route path='/admin/movies/genre' element={<GenreList />}></Route>
+                    <Route path='/admin/movies/create' element={<CreateMovie />}></Route>
                 </Route>
             </Route>
     )
