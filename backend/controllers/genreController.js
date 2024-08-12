@@ -47,7 +47,7 @@ const updateGenre = asyncHandler(async (req, res) => {
 const deleteGenre = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteGenre = await Genre.findOneAndDelete(id);
+        const deleteGenre = await Genre.findByIdAndDelete(id);
         if (!deleteGenre) {
             return res.status(404).json({ error: 'Genre not found' });
         }
