@@ -131,16 +131,54 @@ const deleteComment = async (req, res) => {
         movie.reviews.splice(reviewIndex, 1);
         movie.numReviews = movie.reviews.length;
         movie.rating =
-            numReviews > 0
+            movie.reviews.length > 0
                 ? movie.reviews.reduce(
                       (acc, item) => item.rating + acc,
                       0
                   ) / movie.reviews.length
                 : 0;
+
+        await movie.save();
+        res.json({ message: 'Review deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
+
+const getNewMovies = async (req, res) => {
+    try {
+        const movies = await Movie.find({})
+            .sort({ createdAt: -1 })
+            .limit(10);
+        res.json(movies);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+const getTopMovies = async (req, res) => {
+    try {
+        const movies = await Movie.find({})
+            .sort({ numReviews: -1 })
+            .limit(10);
+        res.json(movies);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+const getRandomMovies = async (req, res) => {
+    try {
+        const movies = await Movie.aggregate([
+            {
+                $sample: { size: 10 },
+            },
+        ]);
+        res.json(movies);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 export {
     createMovie,
@@ -150,4 +188,7 @@ export {
     movieReview,
     deleteMovie,
     deleteComment,
+    getNewMovies,
+    getTopMovies,
+    getRandomMovies,
 };

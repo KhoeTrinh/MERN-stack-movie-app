@@ -10,6 +10,9 @@ import {
     movieReview,
     deleteMovie,
     deleteComment,
+    getNewMovies,
+    getTopMovies,
+    getRandomMovies,
 } from '../controllers/movieController.js';
 
 // Middlewares
@@ -22,6 +25,9 @@ import checkId from '../middlewares/checkId.js';
 // Public Routes
 router.route('/all-movies').get(getAllMovies);
 router.route('/specific-movie/:id').get(getSpecificMovie);
+router.route('/new-movies').get(getNewMovies);
+router.route('/top-movies').get(getTopMovies);
+router.route('/random-movies').get(getRandomMovies);
 
 // Restrictec Routes
 router.route('/:id/reviews').post(authenticate, checkId, movieReview);
@@ -37,6 +43,6 @@ router
     .route('/delete-movie/:id')
     .delete(authenticate, authorizeAdmin, deleteMovie);
 router
-    .route('/delete-comment/:id')
+    .route('/delete-comment')
     .delete(authenticate, authorizeAdmin, deleteComment);
 export default router;
